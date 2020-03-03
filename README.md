@@ -10,8 +10,15 @@ Import this form into another forms.py file, and then make your custom form inhe
 	from wherever import FoxyCartForm
 
 	class PurchaseForm(FoxyCartForm):
-		pass
 		# Add your custom fields or field replacements here.
+		quantity_choices = (
+			(1, "1 month for $199"),
+			(3, "3 months for $299"),
+			(6, "6 months for $399"),
+		)
+
+		quantity = forms.ChoiceField(required=True, choices=quantity_choices, label="Quantity")
+		quantity_max = forms.IntegerField(required=False, widget = forms.HiddenInput(attrs={"readonly": True}), initial=6)
 
 
 ### views.py
